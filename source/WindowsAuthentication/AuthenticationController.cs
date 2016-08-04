@@ -70,8 +70,11 @@ namespace IdentityServer.WindowsAuthentication
                 var signout = message as SignOutRequestMessage;
                 if (signout != null)
                 {
-                    Logger.Info("Sign-in request");
-
+                    Logger.Info("Sign-out request");
+                    if (!string.IsNullOrEmpty(signout.Reply))
+                    {
+                        return Redirect(signout.Reply);
+                    }
                     // no support for signout
                     return Ok();
                 }
